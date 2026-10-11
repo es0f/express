@@ -1,18 +1,23 @@
 {
-  "name": "js-project",
+  "name": "cat-api",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "express assignment",
+  "main": "app.js",
   "scripts": {
+    "dev": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "eslint": "^10.10.0",
-    "globals": "^17.12.0"
+    "globals": "^17.12.0",
+    "nodemon": "^3.1.14"
+  },
+  "dependencies": {
+    "express": "^5.0.0"
   }
 }
