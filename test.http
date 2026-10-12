@@ -9,6 +9,11 @@ Misu
 Content-Disposition: form-data; name="weight"
 
 6
+oj
+--MyBoundary
+Content-Disposition: form-data; name="weight"
+
+5
 --MyBoundary
 Content-Disposition: form-data; name="owner"
 
@@ -22,4 +27,8 @@ Content-Disposition: form-data; name="cat"; filename="upload.jpg"
 Content-Type: image/jpeg
 
 < ./test/upload.jpg
+Content-Disposition: form-data; name="cat"; filename="cat meme.jpg"
+Content-Type: image/jpeg
+
+< ./test/cat meme.jpg
 --MyBoundary--
