@@ -15,6 +15,12 @@ const createThumbnail = async (req, res, next) => {
     await sharp(req.file.path).resize(160, 160).png().toFile(thumbnailPath);
     next();
   } catch (error) {
+    if (
+      error instanceof Error &&
+      error.message === 'Input file contains unsupported image format'
+    ) {
+      return res.status(400).json({message: 'Uploaded file is not a supported image.'});
+    }
     next(error);
   }
 };

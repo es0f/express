@@ -4,6 +4,11 @@ Content-Type: multipart/form-data; boundary=MyBoundary
 --MyBoundary
 Content-Disposition: form-data; name="cat_name"
 
+Misu
+--MyBoundary
+Content-Disposition: form-data; name="weight"
+
+6
 oj
 --MyBoundary
 Content-Disposition: form-data; name="weight"
@@ -18,6 +23,10 @@ Content-Disposition: form-data; name="birthdate"
 
 2023-10-08
 --MyBoundary
+Content-Disposition: form-data; name="cat"; filename="upload.jpg"
+Content-Type: image/jpeg
+
+< ./test/upload.jpg
 Content-Disposition: form-data; name="cat"; filename="cat meme.jpg"
 Content-Type: image/jpeg
 
