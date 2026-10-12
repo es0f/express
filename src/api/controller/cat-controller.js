@@ -10,7 +10,17 @@ export const getCatById = (req, res) => {
   res.json(cat);
 };
 export const createCat = (req, res) => {
-  const newCat = Cat.add(req.body);
+  if (!req.body?.cat_name) {
+    return res.status(400).json({message: 'cat_name is required.'});
+  }
+  if (!req.file) {
+    return res.status(400).json({message: 'A cat image is required.'});
+  }
+
+  const newCat = Cat.add(
+    {...req.body, name: req.body.cat_name},
+    req.file.filename
+  );
   res.status(201).json(newCat);
 };
 export const updateCat = (req, res) => {
