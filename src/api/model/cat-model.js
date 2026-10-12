@@ -11,10 +11,10 @@ let cats = [
 ];
 export const getAll = () => cats;
 export const getById = (id) => cats.find((cat) => cat.cat_id === id);
-export const add = (catData) => {
+export const add = (catData, filename) => {
   const newId =
     cats.length > 0 ? Math.max(...cats.map((cat) => cat.cat_id)) + 1 : 1;
-  const newCat = {cat_id: newId, ...catData};
+  const newCat = {cat_id: newId, ...catData, image: filename};
   cats.push(newCat);
   return newCat;
 };
