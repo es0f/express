@@ -1,31 +1,73 @@
 import * as Cat from '../model/cat-model.js';
-export const getAllCats = (req, res) => {
-  res.json(Cat.getAll());
-};
-export const getCatById = (req, res) => {
-  const cat = Cat.getById(Number(req.params.id));
-  if (!cat) {
-    return res.status(404).json({message: 'Cat not found.'});
-  }
-  res.json(cat);
-};
-export const createCat = (req, res) => {
-  if (!req.body?.cat_name) {
-    return res.status(400).json({message: 'cat_name is required.'});
-  }
-  if (!req.file) {
-    return res.status(400).json({message: 'A cat image is required.'});
-  }
 
-  const newCat = Cat.add(
-    {...req.body, name: req.body.cat_name},
-    req.file.filename
-  );
-  res.status(201).json(newCat);
+export const getAllCats = async (req, res) => {
+  try {
+    res.json(await Cat.getAll());
+  } catch (error) {
+    res.status(500).json({message: 'Database error.'});
+  }
 };
-export const updateCat = (req, res) => {
-  res.json({message: 'Cat item updated.'});
+
+export const getCatById = async (req, res) => {
+  try {
+    const cat = await Cat.getById(Number(req.params.id));
+
+    if (!cat) {
+      return res.status(404).json({message: 'Cat not found.'});
+    }
+
+    res.json(cat);
+  } catch (error) {
+    res.status(500).json({message: 'Database error.'});
+  }
 };
-export const deleteCat = (req, res) => {
-  res.json({message: 'Cat item deleted.'});
+
+export const getCatsByUserId = async (req, res) => {
+  try {
+    const cats = await Cat.getByUserId(Number(req.params.userId));
+    res.json(cats);
+  } catch (error) {
+    res.status(500).json({message: 'Database error.'});
+  }
+};
+
+export const createCat = async (req, res) => {
+  try {
+    if (!req.body?.cat_name || !req.body?.owner || !req.body?.weight) {
+      return res.status(400).json({message: 'Missing required fields.'});
+    }
+    if (!req.file) {
+      return res.status(400).json({message: 'A cat image is required.'});
+    }
+    const newCat = await Cat.add(req.body, req.file.filename);
+    res.status(201).json(newCat);
+  } catch (error) {
+    res.status(500).json({message: 'Database error.'});
+  }
+};
+
+export const updateCat = async (req, res) => {
+  try {
+    const updated = await Cat.modify(req.body, Number(req.params.id));
+
+    if (!updated) {
+      return res.status(404).json({message: 'Cat not found.'});
+    }
+
+    res.json({message: 'Cat updated successfully.'});
+  } catch (error) {
+    res.status(500).json({message: 'Database error.'});
+  }
+};
+
+export const deleteCat = async (req, res) => {
+  try {
+    const deleted = await Cat.remove(Number(req.params.id));
+    if (!deleted) {
+      return res.status(404).json({message: 'Cat not found.'});
+    }
+    res.json({message: 'Cat deleted successfully.'});
+  } catch (error) {
+    res.status(500).json({message: 'Database error.'});
+  }
 };
