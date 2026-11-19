@@ -12,7 +12,7 @@ const upload = multer({dest: 'uploads/'});
 const router = express.Router();
 router.get('/', getAllCats);
 router.get('/:id', getCatById);
-router.post('/', upload.single('cat'), createThumbnail, createCat);
+router.get('/user/:userId', getCatsByUserId);
 router.post('/', upload.single('cat'), createCat);
 router.put('/:id', updateCat);
 router.delete('/:id', deleteCat);
