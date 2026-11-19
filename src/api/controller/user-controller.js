@@ -1,4 +1,5 @@
 import * as User from '../model/user-model.js';
+import bcrypt from 'bcrypt';
 
 export const getAllUsers = async (req, res) => {
   try {
@@ -22,7 +23,7 @@ export const getUserById = async (req, res) => {
   }
 };
 
-export const createUser = async (req, res) => {
+export const postUser = async (req, res) => {
   try {
     const {name, username, email, password} = req.body;
 
